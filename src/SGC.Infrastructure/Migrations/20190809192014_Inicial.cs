@@ -22,34 +22,14 @@ namespace SGC.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Menu",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Titulo = table.Column<string>(nullable: true),
-                    MenuId = table.Column<int>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Menu", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Menu_Menu_MenuId",
-                        column: x => x.MenuId,
-                        principalTable: "Menu",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Profissao",
                 columns: table => new
                 {
                     ProfissaoId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Nome = table.Column<string>(type: "varchar(400)", nullable: false),
-                    Descricao = table.Column<string>(type: "varchar(1000)", nullable: false),
-                    CBO = table.Column<string>(type: "varchar(10)", nullable: false)
+                    Nome = table.Column<string>(nullable: true),
+                    Descricao = table.Column<string>(nullable: true),
+                    CBO = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -62,9 +42,9 @@ namespace SGC.Infrastructure.Migrations
                 {
                     ContatoId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Nome = table.Column<string>(type: "varchar(200)", nullable: false),
-                    Telefone = table.Column<string>(type: "varchar(15)", nullable: true),
-                    Email = table.Column<string>(type: "varchar(100)", nullable: false),
+                    Nome = table.Column<string>(nullable: true),
+                    Telefone = table.Column<string>(nullable: true),
+                    Email = table.Column<string>(nullable: true),
                     ClienteId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
@@ -75,7 +55,7 @@ namespace SGC.Infrastructure.Migrations
                         column: x => x.ClienteId,
                         principalTable: "Cliente",
                         principalColumn: "ClienteId",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -84,10 +64,10 @@ namespace SGC.Infrastructure.Migrations
                 {
                     EnderecoId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Logradouro = table.Column<string>(type: "varchar(200)", nullable: false),
-                    Bairro = table.Column<string>(type: "varchar(200)", nullable: false),
-                    CEP = table.Column<string>(type: "varchar(15)", nullable: false),
-                    Referencia = table.Column<string>(type: "varchar(400)", nullable: true),
+                    Logradouro = table.Column<string>(nullable: true),
+                    Bairro = table.Column<string>(nullable: true),
+                    CEP = table.Column<string>(nullable: true),
+                    Referencia = table.Column<string>(nullable: true),
                     ClienteId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
@@ -139,11 +119,6 @@ namespace SGC.Infrastructure.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Menu_MenuId",
-                table: "Menu",
-                column: "MenuId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_ProdissaoCliente_ClienteId",
                 table: "ProdissaoCliente",
                 column: "ClienteId");
@@ -161,9 +136,6 @@ namespace SGC.Infrastructure.Migrations
 
             migrationBuilder.DropTable(
                 name: "Endereco");
-
-            migrationBuilder.DropTable(
-                name: "Menu");
 
             migrationBuilder.DropTable(
                 name: "ProdissaoCliente");
