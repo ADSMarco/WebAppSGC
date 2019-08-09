@@ -12,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 using SGC.UI.Web.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using SGC.Infrastructure.Data;
 
 namespace SGC.UI.Web
 {
@@ -39,6 +40,9 @@ namespace SGC.UI.Web
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddDefaultIdentity<IdentityUser>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
+
+            //ConnectionString
+            services.AddDbContext<ClienteContext>(Options => Options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
